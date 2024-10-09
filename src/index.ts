@@ -1,9 +1,12 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
+import path from 'path';
 
 import { logger } from './middelwares/logger';
 import { sendMail } from "./mail";
 import { data } from "./data";
+
+
 
 
 dotenv.config();
@@ -16,9 +19,13 @@ app.set('views', './mail-views')
 
 app.use(logger)
 
-app.get('/detention/:email/:name/:message', async (req, res) => {
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../src/index.html'));
+});
+
+app.get('/api/:email/:name/:message', async (req, res) => {
   const {email, name, message } = req.params;
-  
+
   data.email = email;
   data.name = name;
   data.message = message;
