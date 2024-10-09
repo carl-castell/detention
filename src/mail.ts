@@ -5,7 +5,7 @@ import ejs from 'ejs';
 import { data } from './data'
 
 // Render template
-const templatePath = path.join(__dirname, 'mail-views', 'isams.ejs');
+const templatePath = path.resolve(__dirname, '../src/mail-views/isams.ejs');
 
 
 // Function to render HTML and send email
