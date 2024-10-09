@@ -18,6 +18,7 @@ app.set('view engine', 'ejs')
 app.set('views', './mail-views')
 
 app.use(logger)
+app.use(express.static(path.join(__dirname, '../src')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../src/index.html'));
