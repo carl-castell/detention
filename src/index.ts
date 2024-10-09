@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 
 import { logger } from './middelwares/logger';
 import { sendMail } from "./mail";
+import { data } from "./data";
 
 
 dotenv.config();
@@ -15,7 +16,14 @@ app.set('views', './mail-views')
 
 app.use(logger)
 
-app.get('/email/isams', async (req, res) => {
+app.get('/detention/:email/:name/:message', async (req, res) => {
+  const {email, name, message } = req.params;
+  
+  data.email = email;
+  data.name = name;
+  data.message = message;
+
+ 
   try {
     await sendMail();
     res.send('Email sent successfully!');
@@ -23,6 +31,7 @@ app.get('/email/isams', async (req, res) => {
     res.status(500).send('Failed to send email');
   }
 });
+
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
